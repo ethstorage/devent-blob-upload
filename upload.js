@@ -12,8 +12,8 @@ const MAX_BLOB = BigInt(8192 * 1024);
 
 let firstBlob = false;
 
-const send4844Tx = new Send4844Tx('https://beacon.dencun-devnet-12.ethpandaops.io', '');
-const provider = new ethers.JsonRpcProvider('https://beacon.dencun-devnet-12.ethpandaops.io');
+const send4844Tx = new Send4844Tx('https://rpc.dencun-devnet-12.ethpandaops.io', '');
+const provider = new ethers.JsonRpcProvider('https://rpc.dencun-devnet-12.ethpandaops.io');
 const contract = new Contract(contractAddress, contractABI, provider);
 
 async function upload(count) {
