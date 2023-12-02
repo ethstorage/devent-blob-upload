@@ -9,6 +9,6 @@
   "dependencies": {
     "collections": "^5.1.13",
     "ethers": "^6.7.1",
-    "send-4844-tx": "^1.0.6"
+    "send-4844-tx": "^1.0.7"
   }
 }

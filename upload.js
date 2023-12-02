@@ -35,7 +35,7 @@ async function upload(count) {
     const fee = await send4844Tx.getFee();
     tx.maxFeePerGas = BigInt(fee.maxFeePerGas) + BigInt(100000);
     tx.maxPriorityFeePerGas = BigInt(fee.maxPriorityFeePerGas) + BigInt(100000);
-    tx.maxFeePerBlobGas = 3000000n;
+    tx.maxFeePerBlobGas = 5000000n;
 
     const hash = await send4844Tx.sendTx(blobs, tx);
     console.log(hash);
@@ -55,8 +55,7 @@ async function batchBlob() {
 
         try {
             await upload(400);
-        } catch (e) {
-        }
+        } catch (e) {}
     }
 }
 
