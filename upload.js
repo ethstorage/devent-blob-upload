@@ -8,7 +8,7 @@ const contractABI = [
     "function putBlobs(uint256 num) public payable",
     "function lastKvIdx() public view returns (uint40)"
 ]
-const MAX_BLOB = BigInt(8192 * 1024);
+const MAX_BLOB = BigInt(8000000);
 
 let firstBlob = false;
 
@@ -26,16 +26,17 @@ async function upload(count) {
     const content = crypto.randomBytes(4096 * 31);
     const blobs = EncodeBlobs(content);
     const tx = await contract.putBlobs.populateTransaction(count, {
-        value: price
+        value: price,
+        gasLimit: 25000000
     });
     // tx.nonce = 39;
     // tx.maxFeePerGas = 20000000000n;
     // tx.maxPriorityFeePerGas = 6000000000n;
     // tx.maxFeePerBlobGas = 70000000000n;
     const fee = await send4844Tx.getFee();
-    tx.maxFeePerGas = BigInt(fee.maxFeePerGas) + BigInt(100000);
-    tx.maxPriorityFeePerGas = BigInt(fee.maxPriorityFeePerGas) + BigInt(100000);
-    tx.maxFeePerBlobGas = 5000000n;
+    tx.maxFeePerGas = BigInt(fee.maxFeePerGas) + BigInt(100000000);
+    tx.maxPriorityFeePerGas = BigInt(fee.maxPriorityFeePerGas) + BigInt(100000000)
+    tx.maxFeePerBlobGas = 30000000000n;
 
     const hash = await send4844Tx.sendTx(blobs, tx);
     console.log(hash);
