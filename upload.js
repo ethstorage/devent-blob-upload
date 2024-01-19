@@ -2,7 +2,8 @@ const {ethers, Contract} = require("ethers");
 const {Send4844Tx, EncodeBlobs} = require("send-4844-tx");
 const crypto = require('crypto');
 
-const contractAddress = '0x42982e24ce7F138e54b43133D3C538AE4c00E962'
+const RPC = "https://tame-wild-liquid.ethereum-goerli.quiknode.pro/4ae31eb78cb83cafc31140a8acc0841ea197a668";
+const contractAddress = '0x9e186c49b487C03e0c529b67BD9Bc9e1e2E713Fc'
 const contractABI = [
     "function upfrontPayment() public view returns (uint256)",
     "function putBlobs(bytes32[] memory keys) public payable",
@@ -12,8 +13,8 @@ const MAX_BLOB = BigInt(8000000);
 
 let firstBlob = false;
 
-const send4844Tx = new Send4844Tx('https://rpc.dencun-devnet-12.ethpandaops.io', '');
-const provider = new ethers.JsonRpcProvider('https://rpc.dencun-devnet-12.ethpandaops.io');
+const send4844Tx = new Send4844Tx(RPC, '');
+const provider = new ethers.JsonRpcProvider(RPC);
 const contract = new Contract(contractAddress, contractABI, provider);
 
 async function upload() {
