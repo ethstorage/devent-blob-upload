@@ -1,5 +1,5 @@
 const {ethers, Contract} = require("ethers");
-const {Send4844Tx, EncodeBlobs} = require("send-4844-tx");
+const {BlobUploader, EncodeBlobs} = require("ethstorage-sdk");
 const crypto = require('crypto');
 
 const RPC = "https://tame-wild-liquid.ethereum-goerli.quiknode.pro/4ae31eb78cb83cafc31140a8acc0841ea197a668";
@@ -13,7 +13,7 @@ const MAX_BLOB = BigInt(8000000);
 
 let firstBlob = false;
 
-const send4844Tx = new Send4844Tx(RPC, '');
+const send4844Tx = new BlobUploader(RPC, '');
 const provider = new ethers.JsonRpcProvider(RPC);
 const contract = new Contract(contractAddress, contractABI, provider);
 
@@ -33,7 +33,7 @@ async function upload() {
         count = 200;
         gasLimit = 13000000;
     }
-    // price = price * BigInt(count);
+    price = price * BigInt(count);
 
     // create data
     const keys = [];
@@ -48,15 +48,15 @@ async function upload() {
     // tx.nonce = 2;
     tx.maxFeePerGas = maxFeePerGas;
     tx.maxPriorityFeePerGas = maxPriorityFeePerGas;
-    tx.maxFeePerBlobGas = 1950000000000n;
+    tx.maxFeePerBlobGas = 1990000000000n;
 
     //  send
     const content = crypto.randomBytes(4096 * 31 *3);
     const blobs = EncodeBlobs(content);
-    const hash = await send4844Tx.sendTx(blobs, tx);
+    const hash = await send4844Tx.sendTx(tx, blobs);
     console.log(hash);
     const txReceipt = await send4844Tx.getTxReceipt(hash);
-    console.log(txReceipt.blockNumber, " | ", txReceipt.gasUsed.toNumber())
+    console.log(txReceipt.blockNumber, " | ", txReceipt.gasUsed)
     return txReceipt;
 }
 
