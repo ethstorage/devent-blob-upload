@@ -27,12 +27,13 @@ async function upload() {
     let count = 400;
     let gasLimit = 26000000;
     const fee = await send4844Tx.getFee();
-    const maxFeePerGas = BigInt(fee.maxFeePerGas) + BigInt(100000000);
+    const maxPriorityFeePerGas = BigInt(fee.maxPriorityFeePerGas) * BigInt(6) / BigInt(5);
+    const maxFeePerGas = BigInt(fee.maxFeePerGas) * BigInt(6) / BigInt(5);
     if (maxFeePerGas * BigInt(gasLimit) > ethers.parseEther("1")) {
         count = 200;
         gasLimit = 13000000;
     }
-    price = price * BigInt(count);
+    // price = price * BigInt(count);
 
     // create data
     const keys = [];
@@ -44,13 +45,10 @@ async function upload() {
         value: price,
         gasLimit
     });
-    // tx.nonce = 39;
-    // tx.maxFeePerGas = 20000000000n;
-    // tx.maxPriorityFeePerGas = 6000000000n;
-    // tx.maxFeePerBlobGas = 70000000000n;
+    // tx.nonce = 2;
     tx.maxFeePerGas = maxFeePerGas;
-    tx.maxPriorityFeePerGas = BigInt(fee.maxPriorityFeePerGas) + BigInt(100000000)
-    tx.maxFeePerBlobGas = 30000000000n;
+    tx.maxPriorityFeePerGas = maxPriorityFeePerGas;
+    tx.maxFeePerBlobGas = 1950000000000n;
 
     //  send
     const content = crypto.randomBytes(4096 * 31 *3);
@@ -58,7 +56,7 @@ async function upload() {
     const hash = await send4844Tx.sendTx(blobs, tx);
     console.log(hash);
     const txReceipt = await send4844Tx.getTxReceipt(hash);
-    console.log(txReceipt.blockNumber, " = ", txReceipt.gasUsed.toNumber())
+    console.log(txReceipt.blockNumber, " | ", txReceipt.gasUsed.toNumber())
     return txReceipt;
 }
 
@@ -73,7 +71,9 @@ async function batchBlob() {
 
         try {
             await upload();
-        } catch (e) {}
+        } catch (e) {
+            console.log(e)
+        }
     }
 }
 
