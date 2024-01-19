@@ -6,7 +6,7 @@ const RPC = "https://tame-wild-liquid.ethereum-goerli.quiknode.pro/4ae31eb78cb83
 const contractAddress = '0x9e186c49b487C03e0c529b67BD9Bc9e1e2E713Fc'
 const contractABI = [
     "function upfrontPayment() public view returns (uint256)",
-    "function putBlobs(bytes32[] memory keys) public payable",
+    "function putBlobs(uint256 num) public payable",
     "function lastKvIdx() public view returns (uint40)"
 ]
 const MAX_BLOB = BigInt(8000000);
@@ -24,24 +24,24 @@ async function upload() {
         firstBlob = false;
     }
 
-    let count = 400;
-    let gasLimit = 26000000;
+    let count = 100;
+    let gasLimit = 8000000;
     const fee = await send4844Tx.getFee();
     const maxPriorityFeePerGas = BigInt(fee.maxPriorityFeePerGas) * BigInt(6) / BigInt(5);
     const maxFeePerGas = BigInt(fee.maxFeePerGas) * BigInt(6) / BigInt(5);
-    if (maxFeePerGas * BigInt(gasLimit) > ethers.parseEther("1")) {
-        count = 200;
-        gasLimit = 13000000;
-    }
-    price = price * BigInt(count);
-
-    // create data
-    const keys = [];
-    for (let i = 0; i < count; i++) {
-        const key = ethers.keccak256(Buffer.from("_" + i + "_" + Date.now()));
-        keys.push(key);
-    }
-    const tx = await contract.putBlobs.populateTransaction(keys, {
+    // if (maxFeePerGas * BigInt(gasLimit) > ethers.parseEther("1")) {
+    //     count = 200;
+    //     gasLimit = 13000000;
+    // }
+    // price = price * BigInt(count);
+    //
+    // // create data
+    // const keys = [];
+    // for (let i = 0; i < count; i++) {
+    //     const key = ethers.keccak256(Buffer.from("_" + i + "_" + Date.now()));
+    //     keys.push(key);
+    // }
+    const tx = await contract.putBlobs.populateTransaction(count, {
         value: price,
         gasLimit
     });
@@ -51,7 +51,7 @@ async function upload() {
     tx.maxFeePerBlobGas = 1990000000000n;
 
     //  send
-    const content = crypto.randomBytes(4096 * 31 *3);
+    const content = crypto.randomBytes(4096 * 31);
     const blobs = EncodeBlobs(content);
     const hash = await send4844Tx.sendTx(tx, blobs);
     console.log(hash);
