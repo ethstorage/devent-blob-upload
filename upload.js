@@ -3,7 +3,7 @@ const {BlobUploader, EncodeBlobs} = require("ethstorage-sdk");
 const crypto = require('crypto');
 
 const RPC = "https://tame-wild-liquid.ethereum-goerli.quiknode.pro/4ae31eb78cb83cafc31140a8acc0841ea197a668";
-const contractAddress = '0x9e186c49b487C03e0c529b67BD9Bc9e1e2E713Fc'
+const contractAddress = '0xc6F300f3F60a5822fd56f6589077Cb2D409ca52e'
 const contractABI = [
     "function upfrontPayment() public view returns (uint256)",
     "function putBlobs(uint256 num) public payable",
@@ -48,7 +48,7 @@ async function upload() {
     // tx.nonce = 2;
     tx.maxFeePerGas = maxFeePerGas;
     tx.maxPriorityFeePerGas = maxPriorityFeePerGas;
-    tx.maxFeePerBlobGas = 1990000000000n;
+    tx.maxFeePerBlobGas = 2100000000000n;
 
     //  send
     const content = crypto.randomBytes(4096 * 31);
