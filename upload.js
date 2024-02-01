@@ -2,14 +2,14 @@ const {ethers, Contract} = require("ethers");
 const {BlobUploader, EncodeBlobs} = require("ethstorage-sdk");
 const crypto = require('crypto');
 
-const RPC = "https://tame-wild-liquid.ethereum-goerli.quiknode.pro/4ae31eb78cb83cafc31140a8acc0841ea197a668";
-const contractAddress = '0xc6F300f3F60a5822fd56f6589077Cb2D409ca52e'
+const RPC = "https://polished-silent-market.ethereum-sepolia.quiknode.pro/3b74a592be57773068d83f931dd98af8cbc1e9ca";
+const contractAddress = '0x804C520d3c084C805E37A35E90057Ac32831F96f'
 const contractABI = [
     "function upfrontPayment() public view returns (uint256)",
     "function putBlobs(uint256 num) public payable",
     "function lastKvIdx() public view returns (uint40)"
 ]
-const MAX_BLOB = BigInt(8000000);
+const MAX_BLOB = 500000n;
 
 let firstBlob = false;
 
@@ -24,31 +24,21 @@ async function upload() {
         firstBlob = false;
     }
 
-    let count = 100;
-    let gasLimit = 8000000;
-    const fee = await send4844Tx.getFee();
-    const maxPriorityFeePerGas = BigInt(fee.maxPriorityFeePerGas) * BigInt(6) / BigInt(5);
-    const maxFeePerGas = BigInt(fee.maxFeePerGas) * BigInt(6) / BigInt(5);
-    // if (maxFeePerGas * BigInt(gasLimit) > ethers.parseEther("1")) {
-    //     count = 200;
-    //     gasLimit = 13000000;
-    // }
-    // price = price * BigInt(count);
-    //
-    // // create data
-    // const keys = [];
-    // for (let i = 0; i < count; i++) {
-    //     const key = ethers.keccak256(Buffer.from("_" + i + "_" + Date.now()));
-    //     keys.push(key);
-    // }
+    let count = 250;
+    let gasLimit = 14000000;
     const tx = await contract.putBlobs.populateTransaction(count, {
         value: price,
         gasLimit
     });
+    // const fee = await send4844Tx.getFee();
+    // const maxPriorityFeePerGas = BigInt(fee.maxPriorityFeePerGas) * BigInt(6) / BigInt(5);
+    // const maxFeePerGas = BigInt(fee.maxFeePerGas) * BigInt(6) / BigInt(5);
     // tx.nonce = 2;
-    tx.maxFeePerGas = maxFeePerGas;
-    tx.maxPriorityFeePerGas = maxPriorityFeePerGas;
-    tx.maxFeePerBlobGas = 2100000000000n;
+    // tx.maxFeePerGas = maxFeePerGas;
+    // tx.maxPriorityFeePerGas = maxPriorityFeePerGas;
+    // tx.maxFeePerBlobGas = 2100000000000n;
+    const blobGas = await send4844Tx.getBlobGasPrice();
+    tx.maxFeePerBlobGas = blobGas * 6n / 5n;
 
     //  send
     const content = crypto.randomBytes(4096 * 31);
