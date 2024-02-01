@@ -35,8 +35,8 @@ async function upload() {
     const fee = await send4844Tx.getFee();
     let maxFeePerGas = BigInt(fee.maxFeePerGas) * BigInt(6) / BigInt(5);
     let maxPriorityFeePerGas = BigInt(fee.maxPriorityFeePerGas) * BigInt(6) / BigInt(5);
-    if(maxFeePerGas > 220000000n) {
-        maxFeePerGas = 220000000n;
+    if(maxFeePerGas > 2000000000n) {
+        maxFeePerGas = 2000000000n;
     }
     let blobGas = await send4844Tx.getBlobGasPrice();
     blobGas = blobGas * 6n / 5n;
@@ -45,7 +45,7 @@ async function upload() {
     }
     tx.maxFeePerGas = maxFeePerGas;
     tx.maxPriorityFeePerGas = maxPriorityFeePerGas;
-    tx.maxFeePerBlobGas = blobGas * 6n / 5n;
+    tx.maxFeePerBlobGas = blobGas;
     // tx.nonce = 2;
     // tx.maxFeePerGas = maxFeePerGas;
     // tx.maxPriorityFeePerGas = maxPriorityFeePerGas;
