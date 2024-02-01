@@ -30,15 +30,26 @@ async function upload() {
         value: price,
         gasLimit
     });
-    // const fee = await send4844Tx.getFee();
-    // const maxPriorityFeePerGas = BigInt(fee.maxPriorityFeePerGas) * BigInt(6) / BigInt(5);
-    // const maxFeePerGas = BigInt(fee.maxFeePerGas) * BigInt(6) / BigInt(5);
+
+    // limit gas
+    const fee = await send4844Tx.getFee();
+    let maxFeePerGas = BigInt(fee.maxFeePerGas) * BigInt(6) / BigInt(5);
+    let maxPriorityFeePerGas = BigInt(fee.maxPriorityFeePerGas) * BigInt(6) / BigInt(5);
+    if(maxFeePerGas > 220000000n) {
+        maxFeePerGas = 220000000n;
+    }
+    let blobGas = await send4844Tx.getBlobGasPrice();
+    blobGas = blobGas * 6n / 5n;
+    if(blobGas > 25000000000n) {
+        blobGas = 25000000000n;
+    }
+    tx.maxFeePerGas = maxFeePerGas;
+    tx.maxPriorityFeePerGas = maxPriorityFeePerGas;
+    tx.maxFeePerBlobGas = blobGas * 6n / 5n;
     // tx.nonce = 2;
     // tx.maxFeePerGas = maxFeePerGas;
     // tx.maxPriorityFeePerGas = maxPriorityFeePerGas;
     // tx.maxFeePerBlobGas = 2100000000000n;
-    const blobGas = await send4844Tx.getBlobGasPrice();
-    tx.maxFeePerBlobGas = blobGas * 6n / 5n;
 
     //  send
     const content = crypto.randomBytes(4096 * 31);
