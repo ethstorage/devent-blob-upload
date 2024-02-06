@@ -32,7 +32,7 @@ async function upload(contract) {
     }
 
     let count = 250;
-    let gasLimit = 14000000;
+    let gasLimit = 17000000;
     const tx = await contract.putBlobs.populateTransaction(count, {
         value: price,
         gasLimit
