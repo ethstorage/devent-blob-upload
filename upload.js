@@ -70,21 +70,21 @@ async function upload(contract) {
 
 async function batchBlob() {
     while (true) {
-        try {
-            const provider = new ethers.JsonRpcProvider(RPC);
-            const contract = new Contract(contractAddress, contractABI, provider);
-            const currentIndex = await contract.lastKvIdx();
-            const totalCount = MAX_BLOB - currentIndex;
-            console.log("Current Number:",currentIndex, " Total Number:",totalCount);
-            if (totalCount <= 0) {
-                return;
-            }
-
-            await upload(contract);
-        } catch (e) {
-            console.log(e)
-            await sleep(3000);
+        // try {
+        const provider = new ethers.JsonRpcProvider(RPC);
+        const contract = new Contract(contractAddress, contractABI, provider);
+        const currentIndex = await contract.lastKvIdx();
+        const totalCount = MAX_BLOB - currentIndex;
+        console.log("Current Number:", currentIndex, " Total Number:", totalCount);
+        if (totalCount <= 0) {
+            return;
         }
+
+        await upload(contract);
+        // } catch (e) {
+        //     console.log(e)
+        //     await sleep(3000);
+        // }
     }
 }
 
