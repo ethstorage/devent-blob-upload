@@ -1,9 +1,9 @@
-const dotenv = require("dotenv")
-dotenv.config()
-
 const {ethers, Contract} = require("ethers");
 const {BlobUploader, EncodeBlobs} = require("ethstorage-sdk");
 const crypto = require('crypto');
+
+const dotenv = require("dotenv")
+dotenv.config()
 
 const RPC = "https://polished-silent-market.ethereum-sepolia.quiknode.pro/3b74a592be57773068d83f931dd98af8cbc1e9ca";
 const contractAddress = '0x804C520d3c084C805E37A35E90057Ac32831F96f'
@@ -13,10 +13,13 @@ const contractABI = [
     "function lastKvIdx() public view returns (uint40)"
 ]
 const MAX_BLOB = 2000000n;
-const privateKey = process.env.pk;
-const send4844Tx = new BlobUploader(RPC, privateKey);
 
 let firstBlob = false;
+
+const privateKey = process.env.pk;
+const send4844Tx = new BlobUploader(RPC, privateKey);
+const provider = new ethers.JsonRpcProvider(RPC);
+const contract = new Contract(contractAddress, contractABI, provider);
 
 const sleep = (ms) => {
     return new Promise((resolve) => {
@@ -24,7 +27,7 @@ const sleep = (ms) => {
     });
 }
 
-async function upload(contract) {
+async function upload() {
     let price = await contract.upfrontPayment();
     if (firstBlob) {
         price = price + BigInt(1000000000000);
@@ -42,12 +45,12 @@ async function upload(contract) {
     const fee = await send4844Tx.getFee();
     let maxFeePerGas = BigInt(fee.maxFeePerGas) * BigInt(6) / BigInt(5);
     let maxPriorityFeePerGas = BigInt(fee.maxPriorityFeePerGas) * BigInt(6) / BigInt(5);
-    if(maxFeePerGas > 5000000000n) {
+    if (maxFeePerGas > 5000000000n) {
         maxFeePerGas = 5000000000n;
     }
     let blobGas = await send4844Tx.getBlobGasPrice();
     blobGas = blobGas * 6n / 5n;
-    if(blobGas > 25000000000n) {
+    if (blobGas > 25000000000n) {
         blobGas = 25000000000n;
     }
     tx.maxFeePerGas = maxFeePerGas;
@@ -70,9 +73,6 @@ async function upload(contract) {
 
 async function batchBlob() {
     while (true) {
-        // try {
-        const provider = new ethers.JsonRpcProvider(RPC);
-        const contract = new Contract(contractAddress, contractABI, provider);
         const currentIndex = await contract.lastKvIdx();
         const totalCount = MAX_BLOB - currentIndex;
         console.log("Current Number:", currentIndex, " Total Number:", totalCount);
@@ -80,11 +80,12 @@ async function batchBlob() {
             return;
         }
 
-        await upload(contract);
-        // } catch (e) {
-        //     console.log(e)
-        //     await sleep(3000);
-        // }
+        try {
+            await upload();
+        } catch (e) {
+            console.log(e)
+            await sleep(3000);
+        }
     }
 }
 
