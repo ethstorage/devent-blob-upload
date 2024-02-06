@@ -14,6 +14,7 @@ const contractABI = [
 ]
 const MAX_BLOB = 2000000n;
 const privateKey = process.env.pk;
+const send4844Tx = new BlobUploader(RPC, privateKey);
 
 let firstBlob = false;
 
@@ -37,7 +38,6 @@ async function upload(contract) {
         gasLimit
     });
 
-    const send4844Tx = new BlobUploader(RPC, privateKey);
     // limit gas
     const fee = await send4844Tx.getFee();
     let maxFeePerGas = BigInt(fee.maxFeePerGas) * BigInt(6) / BigInt(5);
