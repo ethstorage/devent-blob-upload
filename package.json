@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "collections": "^5.1.13",
+    "dotenv": "^16.4.1",
     "ethers": "^6.7.1",
     "ethstorage-sdk": "^1.1.2",
     "send-4844-tx": "^1.0.7"
