@@ -7,6 +7,11 @@
   resolved "https://registry.npmjs.org/@adraffy/ens-normalize/-/ens-normalize-1.10.0.tgz#d2a39395c587e092d77cbbc80acf956a54f38bf7"
   integrity sha512-nA9XHtlAkYfJxY7bce8DcN7eKxWWCWkU+1GR9d+U6MbNpfwQp8TI7vqOsBsMcHoT4mBu2kypKoSKnghEzOOq5Q==
 
+"@adraffy/ens-normalize@1.10.1":
+  version "1.10.1"
+  resolved "https://registry.npmjs.org/@adraffy/ens-normalize/-/ens-normalize-1.10.1.tgz#63430d04bd8c5e74f8d7d049338f1cd9d4f02069"
+  integrity sha512-96Z2IP3mYmF1Xg2cDm8f1gWGf/HUVedQ3FMifV4kG/PQ4yEP51xDtRAEfhVNt5f/uzpNkZHwWQuUcu6D6K+Ekw==
+
 "@ethereumjs/common@4.0.0":
   version "4.0.0"
   resolved "https://registry.npmjs.org/@ethereumjs/common/-/common-4.0.0.tgz#da99cdc822041da02753867d4773683f91e5854f"
@@ -15,7 +20,7 @@
     "@ethereumjs/util" "^9.0.0"
     crc "^4.3.2"
 
-"@ethereumjs/common@^4.0.0", "@ethereumjs/common@^4.1.0":
+"@ethereumjs/common@^4.0.0":
   version "4.1.0"
   resolved "https://registry.npmjs.org/@ethereumjs/common/-/common-4.1.0.tgz#0a959320a69bd2e3b194144b29c61b63bd6e2f6a"
   integrity sha512-XWdQvUjlQHVwh4uGEPFKHpsic69GOsMXEhlHrggS5ju/+2zAmmlz6B25TkCCymeElC9DUp13tH5Tc25Iuvtlcg==
@@ -36,16 +41,6 @@
     "@ethereumjs/common" "^4.0.0"
     "@ethereumjs/rlp" "^5.0.0"
     "@ethereumjs/util" "^9.0.0"
-    ethereum-cryptography "^2.1.2"
-
-"@ethereumjs/tx@^5.1.0":
-  version "5.1.0"
-  resolved "https://registry.npmjs.org/@ethereumjs/tx/-/tx-5.1.0.tgz#c61a9048ec09fff360b18188224aae90c370e57f"
-  integrity sha512-VUhw2+4yXArJZRWhPjmZFrN4WUjUo0qUZUszVpW2KzsGlqCFf67kwJcH9Rca5eS0CRHjr2qHJLpvYOjNuaXVdA==
-  dependencies:
-    "@ethereumjs/common" "^4.1.0"
-    "@ethereumjs/rlp" "^5.0.1"
-    "@ethereumjs/util" "^9.0.1"
     ethereum-cryptography "^2.1.2"
 
 "@ethereumjs/util@^9.0.0", "@ethereumjs/util@^9.0.1":
@@ -515,6 +510,11 @@ collections@^5.1.13:
   dependencies:
     weak-map "~1.0.x"
 
+colors-cli@^1.0.33:
+  version "1.0.33"
+  resolved "https://registry.npmjs.org/colors-cli/-/colors-cli-1.0.33.tgz#22810216e3aaf726b821f6dd3a431a9340ae99cf"
+  integrity sha512-PWGsmoJFdOB0t+BeHgmtuoRZUQucOLl5ii81NBzOOGVxlgE04muFNHlR5j8i8MKbOPELBl3243AI6lGBTj5ICQ==
+
 combined-stream@^1.0.8:
   version "1.0.8"
   resolved "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
@@ -536,6 +536,11 @@ dotenv@^16.4.1:
   version "16.4.1"
   resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.4.1.tgz#1d9931f1d3e5d2959350d1250efab299561f7f11"
   integrity sha512-CjA3y+Dr3FyFDOAMnxZEGtnW9KBR2M0JvvUtXNW+dYJL5ROWxP9DUHCwgFqpMk0OXCc0ljhaNTr2w/kutYIcHQ==
+
+dotenv@^16.4.5:
+  version "16.4.5"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.4.5.tgz#cdd3b3b604cb327e286b4762e13502f717cb099f"
+  integrity sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==
 
 elliptic@6.5.4:
   version "6.5.4"
@@ -596,6 +601,19 @@ ethers@^5.6.7:
     "@ethersproject/web" "5.7.1"
     "@ethersproject/wordlists" "5.7.0"
 
+ethers@^6.12.0:
+  version "6.13.1"
+  resolved "https://registry.npmjs.org/ethers/-/ethers-6.13.1.tgz#2b9f9c7455cde9d38b30fe6589972eb083652961"
+  integrity sha512-hdJ2HOxg/xx97Lm9HdCWk949BfYqYWpyw4//78SiwOLgASyfrNszfMUNB2joKjvGUdwhHfaiMMFFwacVVoLR9A==
+  dependencies:
+    "@adraffy/ens-normalize" "1.10.1"
+    "@noble/curves" "1.2.0"
+    "@noble/hashes" "1.3.2"
+    "@types/node" "18.15.13"
+    aes-js "4.0.0-beta.5"
+    tslib "2.4.0"
+    ws "8.17.1"
+
 ethers@^6.7.1:
   version "6.9.0"
   resolved "https://registry.npmjs.org/ethers/-/ethers-6.9.0.tgz#a4534bdcdfde306aee94ef32f3d5c70d7e33fcb9"
@@ -609,29 +627,16 @@ ethers@^6.7.1:
     tslib "2.4.0"
     ws "8.5.0"
 
-ethers@^6.9.1:
-  version "6.10.0"
-  resolved "https://registry.npmjs.org/ethers/-/ethers-6.10.0.tgz#20f3c63c60d59a993f8090ad423d8a3854b3b1cd"
-  integrity sha512-nMNwYHzs6V1FR3Y4cdfxSQmNgZsRj1RiTU25JwvnJLmyzw9z3SKxNc2XKDuiXXo/v9ds5Mp9m6HBabgYQQ26tA==
+ethstorage-sdk@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.npmjs.org/ethstorage-sdk/-/ethstorage-sdk-1.2.8.tgz#7ef220072f303f3dfffa64d7d538974fa988a95b"
+  integrity sha512-jwNe1YteJWi0gDhRPQdYu5L2jQGrEpIFCnl18fbfVmSXF+MN2FZNDFMlnOgE4VWibHBRXF+i1EtSUto/GeJlBA==
   dependencies:
-    "@adraffy/ens-normalize" "1.10.0"
-    "@noble/curves" "1.2.0"
-    "@noble/hashes" "1.3.2"
-    "@types/node" "18.15.13"
-    aes-js "4.0.0-beta.5"
-    tslib "2.4.0"
-    ws "8.5.0"
-
-ethstorage-sdk@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/ethstorage-sdk/-/ethstorage-sdk-1.1.2.tgz#dc551f2193584411646a4e0eca397a4dc6b604ad"
-  integrity sha512-jUBNOR+/qd1CO/bxwuf9JxI+B5NvVe/drqCykFlKsR7Js+HfxJ6s0p5BLI8LMA0DKWJ9FFfinCRk+1cpowj1XA==
-  dependencies:
-    "@ethereumjs/common" "^4.1.0"
-    "@ethereumjs/tx" "^5.1.0"
-    axios "^1.4.0"
-    c-kzg "^2.1.2"
-    ethers "^6.9.1"
+    colors-cli "^1.0.33"
+    dotenv "^16.4.5"
+    ethers "^6.12.0"
+    kzg-wasm "^0.4.0"
+    rxjs "^7.8.1"
 
 file-uri-to-path@1.0.0:
   version "1.0.0"
@@ -679,6 +684,11 @@ js-sha3@0.8.0:
   resolved "https://registry.npmjs.org/js-sha3/-/js-sha3-0.8.0.tgz#b9b7a5da73afad7dedd0f8c463954cbde6818840"
   integrity sha512-gF1cRrHhIzNfToc802P800N8PpXS+evLLXfsVpowqmAFR9uwbi89WvXg2QspOmXL8QL86J4T1EpFu+yUkwJY3Q==
 
+kzg-wasm@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.npmjs.org/kzg-wasm/-/kzg-wasm-0.4.0.tgz#362048470e25fb9683eefa9d2b076283ae653fa0"
+  integrity sha512-hKEwFbKrY1LZnAH5gY8+PlVWfkGnj2wd2tc83eIgzuC4NoshXqplW9OzGlBDqpAmXxwhiN8fgPG2+NcvUIBSwg==
+
 mime-db@1.52.0:
   version "1.52.0"
   resolved "https://registry.npmjs.org/mime-db/-/mime-db-1.52.0.tgz#bbabcdc02859f4987301c856e3387ce5ec43bf70"
@@ -711,6 +721,13 @@ proxy-from-env@^1.1.0:
   resolved "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz#e102f16ca355424865755d2c9e8ea4f24d58c3e2"
   integrity sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
 
+rxjs@^7.8.1:
+  version "7.8.1"
+  resolved "https://registry.npmjs.org/rxjs/-/rxjs-7.8.1.tgz#6f6f3d99ea8044291efd92e7c7fcf562c4057543"
+  integrity sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==
+  dependencies:
+    tslib "^2.1.0"
+
 scrypt-js@3.0.1:
   version "3.0.1"
   resolved "https://registry.npmjs.org/scrypt-js/-/scrypt-js-3.0.1.tgz#d314a57c2aef69d1ad98a138a21fe9eafa9ee312"
@@ -732,6 +749,11 @@ tslib@2.4.0:
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
+tslib@^2.1.0:
+  version "2.6.3"
+  resolved "https://registry.npmjs.org/tslib/-/tslib-2.6.3.tgz#0438f810ad7a9edcde7a241c3d80db693c8cbfe0"
+  integrity sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==
+
 weak-map@~1.0.x:
   version "1.0.8"
   resolved "https://registry.npmjs.org/weak-map/-/weak-map-1.0.8.tgz#394c18a9e8262e790544ed8b55c6a4ddad1cb1a3"
@@ -741,6 +763,11 @@ ws@7.4.6:
   version "7.4.6"
   resolved "https://registry.npmjs.org/ws/-/ws-7.4.6.tgz#5654ca8ecdeee47c33a9a4bf6d28e2be2980377c"
   integrity sha512-YmhHDO4MzaDLB+M9ym/mDA5z0naX8j7SIlT8f8z+I0VtzsRbekxEutHSme7NPS2qE8StCYQNUnfWdXta/Yu85A==
+
+ws@8.17.1:
+  version "8.17.1"
+  resolved "https://registry.npmjs.org/ws/-/ws-8.17.1.tgz#9293da530bb548febc95371d90f9c878727d919b"
+  integrity sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==
 
 ws@8.5.0:
   version "8.5.0"
